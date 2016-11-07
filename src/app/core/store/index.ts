@@ -7,6 +7,7 @@ import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as fromRouter from '@ngrx/router-store';
 import { composeReducers, defaultFormReducer } from 'ng2-redux-form';
 import { localStorageSync } from 'ngrx-store-localstorage';
+import { Schema } from 'redux-orm';
 let uuid = require('node-uuid');
 
 import { Book } from './book/book.model';
@@ -22,6 +23,9 @@ import { User } from './user/user.model';
 import { Crisis } from './crisis/crisis.model';
 import { Contact } from './contact/contact.model';
 import { Hero } from './hero/hero.model';
+import { Todo } from './todo/todo.model';
+import { Tag } from './tag/tag.model';
+import { TodoUser } from './todo-user/todo-user.model';
 
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
@@ -439,3 +443,13 @@ export const getSelectedHero = compose(fromHeroes.getSelectedHero, getHeroesStat
  */
 export const getUser = (state$: Observable<RootState>) =>
   state$.select(state => state.user);
+
+
+
+// Selects the state managed by Redux-ORM.
+export const ormSelector = state => state.orm;
+
+export const schema = new Schema();
+schema.register(Todo, Tag, TodoUser);
+
+export default schema;

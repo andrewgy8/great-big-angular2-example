@@ -1,0 +1,15 @@
+<div>
+  <h1>Todos for {selectedUser.name}</h1>
+  <UserSelector onSelect={onUserSelect}>
+    {userChoices}
+  </UserSelector>
+  <ul className="list-group">
+    <TodoItem *ngFor="todo in todos$ | async" key={todo.id} tags={todo.tags} done={todo.done} onAddTag={addTagToTodo.bind(null,
+      todo.id)} onRemoveTag={removeTagFromTodo.bind(null, todo.id)} onMarkDone={markDone.bind(null, todo.id)} onDelete={deleteTodo.bind(null,
+      todo.id)}>
+      {todo.text}
+    </TodoItem>
+  </ul>
+  <h2>Add Todo for {selectedUser.name}</h2>
+  <AddTodoForm onSubmit={onCreate}/>
+</div>

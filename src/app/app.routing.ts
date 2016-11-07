@@ -10,6 +10,7 @@ export const routes: Routes = [
   { path: 'contacts', loadChildren: 'app/contact/contact.module#ContactModule' },
   { path: 'crisis', loadChildren: 'app/crisis/crisis.module#CrisisModule' },
   { path: 'heroes', loadChildren: 'app/hero/hero.module#HeroModule' },
+  { path: 'todos', loadChildren: 'app/todos/todos.module#TodosModule' },
   { path: '**', redirectTo: '/not-found', pathMatch: 'full' }
 ];
 
