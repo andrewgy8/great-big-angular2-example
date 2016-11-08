@@ -5,7 +5,6 @@ import 'rxjs/add/observable/forkJoin';
 import { Observable } from 'rxjs/Observable';
 import { combineLatest } from 'rxjs/observable/combineLatest';
 import * as fromRouter from '@ngrx/router-store';
-import { composeReducers, defaultFormReducer } from 'ng2-redux-form';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import { Schema } from 'redux-orm';
 let uuid = require('node-uuid');
@@ -126,19 +125,14 @@ const reducers = {
   user: fromUser.reducer
 }
 
-const developmentReducer = composeReducers(
-  defaultFormReducer(),
+const developmentReducer =
   compose(
     storeFreeze,
     localStorageSync(['session'], true),
-    combineReducers)(reducers)
-);
-const productionReducer = composeReducers(
-  defaultFormReducer(),
-  compose(
-    localStorageSync(['session'], true),
-    combineReducers)(reducers)
-);
+    combineReducers)(reducers);
+const productionReducer = compose(
+  localStorageSync(['session'], true),
+  combineReducers)(reducers);
 
 export function reducer(state: any, action: any) {
   if (environment.production) {

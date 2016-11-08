@@ -87,8 +87,6 @@
     "http-proxy": "^1.13.2",
     "istanbul": "^1.0.0-alpha.2",
     "istanbul-instrumenter-loader": "^0.2.0",
-    "ng2-redux": "3.3.2",
-    "ng2-redux-form": "1.0.30",
     "ngrx-store-freeze": "^0.1.0",
     "ngrx-store-localstorage": "0.1.5",
     "node-uuid": "^1.4.7",
@@ -113,6 +111,7 @@
   "devDependencies": {
     "@types/jasmine": "^2.2.30",
     "@types/node-uuid": "0.0.28",
+    "@types/react": "0.14.44",
     "angular-cli": "1.0.0-beta.19-3",
     "codelyzer": "~0.0.26",
     "jasmine-core": "2.4.1",
