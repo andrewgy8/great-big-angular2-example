@@ -1,4 +1,3 @@
-import 'rxjs/add/operator/let';
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
@@ -34,6 +33,6 @@ export class CollectionPage {
   books$: Observable<Book[]>;
 
   constructor(store: Store<fromRoot.RootState>) {
-    this.books$ = store.let(fromRoot.getBookCollection);
+    this.books$ = store.select(fromRoot.getBookCollection);
   }
 }

@@ -8,20 +8,17 @@ import 'rxjs/add/observable/from';
 
 import { environment } from '../../../environments/environment.prod';
 import { Claim } from './claim/claim.model';
-import { Rebuttal } from './rebuttal/rebuttal.model';
 import { ClaimRebuttal } from './claim-rebuttal/claim-rebuttal.model';
-import { Note } from './note/note.model';
 import { Contact } from './contact/contact.model';
 import { Crisis } from './crisis/crisis.model';
 import { Hero } from './hero/hero.model';
+import { Note } from './note/note.model';
+import { Rebuttal } from './rebuttal/rebuttal.model';
 
 const BASE_URL = '/api';
 
 @Injectable()
 export class DataService {
-    postUrl: string = '/api/list';
-    getUrl: string = environment.production ? 'https://script.google.com/macros/s/AKfycbzRNPSnpecG8pjxXMkrV3yb3ezw2jYXz7nNwTPeOJH4tbPyOoE/exec?table=' : '/objections.json';
-
     private JSON_HEADER = { headers: new Headers({ 'Content-Type': 'application/json' }) };
 
     constructor(private http: Http) { }
@@ -52,7 +49,7 @@ export class DataService {
     }
 
     addOrUpdateNote(note: Note): Observable<Note> {
-        return this.http.post(`${BASE_URL}/note`, JSON.stringify(note), this.JSON_HEADER)
+        return this.http.post(`${BASE_URL}/note`, this.prepareRecord(note), this.JSON_HEADER)
             .map((response: Response) => response.json());
     }
 
@@ -62,7 +59,7 @@ export class DataService {
     }
 
     addOrUpdateContact(contact: Contact): Observable<Contact> {
-        return this.http.post(`${BASE_URL}/contact`, JSON.stringify(contact), this.JSON_HEADER)
+        return this.http.post(`${BASE_URL}/contact`, this.prepareRecord(contact), this.JSON_HEADER)
             .map((response: Response) => response.json());
     }
 
@@ -72,7 +69,7 @@ export class DataService {
     }
 
     addOrUpdateCrisis(crisis: Crisis): Observable<Crisis> {
-        return this.http.post(`${BASE_URL}/crisis`, JSON.stringify(crisis), this.JSON_HEADER)
+        return this.http.post(`${BASE_URL}/crisis`, this.prepareRecord(crisis), this.JSON_HEADER)
             .map((response: Response) => response.json());
     }
 
@@ -82,7 +79,12 @@ export class DataService {
     }
 
     addOrUpdateHero(hero: Hero): Observable<Hero> {
-        return this.http.post(`${BASE_URL}/hero`, JSON.stringify(hero), this.JSON_HEADER)
+        return this.http.post(`${BASE_URL}/hero`, this.prepareRecord(hero), this.JSON_HEADER)
             .map((response: Response) => response.json());
+    }
+
+    prepareRecord(record) {
+        delete record.dirty;
+        return JSON.stringify(record);
     }
 }

@@ -1,11 +1,8 @@
 import 'rxjs/add/operator/let';
-import {
-    Component,
-    ChangeDetectionStrategy,
-    OnInit
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import * as fromRoot from '../core/store';
 import { Contact } from '../core/store/contact/contact.model';
@@ -22,18 +19,26 @@ let uuid = require('node-uuid');
     styleUrls: ['contact.page.css']
 })
 export class ContactPage implements OnInit {
-    contacts$: Observable<Contact[]>;
+    contact$: Observable<Contact>;
 
     msg$: Observable<string>;
     user$: Observable<User>;
+    contactForm: FormGroup;
 
-    constructor(private store: Store<fromRoot.RootState>) {
+    constructor(private store: Store<fromRoot.RootState>,
+        private formBuilder: FormBuilder) {
     }
 
     ngOnInit() {
-        this.user$ = this.store.let(fromRoot.getUser);
-        this.msg$ = this.store.let(fromRoot.getMsg);
-        this.contacts$ = this.store.let(fromRoot.getContacts);
+        this.user$ = this.store.select(fromRoot.getUserState);
+        this.msg$ = this.store.select(fromRoot.getMsg);
+        this.contact$ = this.store.select(fromRoot.getContact);
+        this.contact$.subscribe(contact => {
+            this.contactForm = this.formBuilder.group({
+                name: [contact ? contact.name : '', Validators.required],  // TODO: fix this hack
+                id: [contact ? contact.id : '', Validators.required]  // TODO: fix this hack
+            })
+        });
     }
 
     nextContact() {
@@ -48,8 +53,8 @@ export class ContactPage implements OnInit {
     }
 
     onSubmit() {
-        this.store.dispatch(new layout.SetMsgAction('Saved contact'))
-        setTimeout(() => this.store.dispatch(new layout.SetMsgAction(null)));
+        this.store.dispatch(new contact.UpdateContactAction(
+            this.contactForm.value));
     }
 
 }

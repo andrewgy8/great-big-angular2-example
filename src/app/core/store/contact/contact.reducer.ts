@@ -1,7 +1,4 @@
-import '@ngrx/core/add/operator/select';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/let';
-import { Observable } from 'rxjs/Observable';
+import { createSelector } from 'reselect';
 
 import { Contact, initialContact } from './contact.model';
 import * as contact from './contact.actions';
@@ -17,15 +14,14 @@ export function reducer(state = initialEntities<Contact>({ selectedEntityId: 21 
     case contact.ActionTypes.LOAD_SUCCESS:
       entities = Object.assign({}, state.entities);
       entities[action.payload.id] = contactReducer(null, action);
-
-      console.log('payload: ' + action.payload)
-
       return Object.assign({}, state, {
         ids: Object.keys(entities),
         entities: entities,
+        selectedEntityId: action.payload.id,
         loaded: true,
-        loading: false,
+        loading: false
       });
+
     case contact.ActionTypes.UPDATE_CONTACT:
     case contact.ActionTypes.UPDATE_CONTACT_SUCCESS:
       entities = Object.assign({}, state.entities);
@@ -34,13 +30,11 @@ export function reducer(state = initialEntities<Contact>({ selectedEntityId: 21 
         ids: Object.keys(entities),
         entities: entities
       });
+
     case contact.ActionTypes.NEXT_CONTACT:
       let ix = 1 + state.ids.indexOf(state.selectedEntityId);
       if (ix >= state.ids.length) { ix = 0; }
-      return Object.assign({}, state, {
-        ids: Object.keys(entities),
-        entities: Object.assign({}, state.entities, { selectedEntityId: ix + '' })
-      });
+      return Object.assign({}, state, { selectedEntityId: state.ids[ix] });
 
     default:
       return state;
@@ -55,7 +49,7 @@ export function reducer(state = initialEntities<Contact>({ selectedEntityId: 21 
         return Object.assign({}, action.payload, { dirty: true });
       case contact.ActionTypes.UPDATE_CONTACT:
         if (state.id == action.payload.id) {
-          return Object.assign({}, state, { text: action.payload.text }, { dirty: true });
+          return Object.assign({}, state, action.payload, { dirty: true });
         } else {
           return state;
         }
@@ -75,14 +69,13 @@ export function reducer(state = initialEntities<Contact>({ selectedEntityId: 21 
 
 };
 
-export function getContactEntities(state$: Observable<Entities<Contact>>) {
-  return state$.select(state => state.entities);
-}
+export const getEntities = (state: Entities<Contact>) => state.entities;
 
-export function getContactIds(state$: Observable<Entities<Contact>>) {
-  return state$.select(state => state.ids);
-}
+export const getIds = (state: Entities<Contact>) => state.ids;
 
-export function getContact(state$: Observable<Entities<Contact>>) {
-  return state$.select(state => state.entities[state.selectedEntityId]);
-}
+export const getSelectedId = (state: Entities<Contact>) => state.selectedEntityId;
+
+export const getSelected = createSelector(getEntities, getSelectedId, (entities, selectedId) => {
+  return entities[selectedId];
+});
+

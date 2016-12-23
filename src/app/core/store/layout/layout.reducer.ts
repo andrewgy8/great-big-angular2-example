@@ -1,5 +1,4 @@
-import '@ngrx/core/add/operator/select';
-import { Observable } from 'rxjs/Observable';
+import { createSelector } from 'reselect';
 import * as layout from './layout.actions';
 import * as contact from '../contact/contact.actions';
 import * as claim from '../claim/claim.actions';
@@ -34,14 +33,9 @@ export function reducer(state = initialLayout, action: layout.Actions |
         msg: 'Loading contacts ...'
       });
 
-    case layout.ActionTypes.SET_MESSAGE:
-      return Object.assign({}, state, {
-        msg: action.payload
-      });
-
     case contact.ActionTypes.UPDATE_CONTACT_SUCCESS:
       return Object.assign({}, state, {
-        msg: 'Saved ' + this.contact.name
+        msg: 'Saved ' + action.payload.name
       });
 
     default:
@@ -49,14 +43,8 @@ export function reducer(state = initialLayout, action: layout.Actions |
   }
 }
 
-export function getShowSidenav(state$: Observable<Layout>): Observable<boolean> {
-  return state$.select(state => state.booksPage.showSidenav);
-}
+export const getShowSidenav = (state: Layout) => state.booksPage.showSidenav;
 
-export function getDebatePageState(state$: Observable<Layout>): Observable<DebatePageLayout> {
-  return state$.select(state => state.debatePage);
-}
+export const getDebatePageState = (state: Layout) => state.debatePage;
 
-export function getMsg(state$: Observable<Layout>): Observable<string> {
-  return state$.select(state => state.msg);
-}
+export const getMsg = (state: Layout) => state.msg;

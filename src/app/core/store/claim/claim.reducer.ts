@@ -15,10 +15,6 @@ export function reducer(state = initialEntities<Claim>(),
 
   switch (action.type) {
 
-    case claim.ActionTypes.ADD_CLAIM: {
-      return Object.assign({}, state, action.payload);
-    }
-
     // make the same change to every entity
     case claim.ActionTypes.TOGGLE_ALL_REBUTTALS: {
       let id: string;
@@ -35,6 +31,7 @@ export function reducer(state = initialEntities<Claim>(),
       return Object.assign({}, state, { ids: action.payload });
 
     // add one entity
+    case claim.ActionTypes.ADD_CLAIM:
     case claim.ActionTypes.LOAD_SUCCESS: {
       entities = Object.assign({}, state.entities);
       entities[action.payload.id] = singleReducer(null, action);
@@ -69,6 +66,9 @@ export function reducer(state = initialEntities<Claim>(),
 
     switch (action.type) {
 
+      case claim.ActionTypes.ADD_CLAIM:
+        return Object.assign({}, action.payload, { dirty: true });
+
       case claim.ActionTypes.LOAD_SUCCESS:
         return Object.assign({}, initialClaim, action.payload, { dirty: false });
 
@@ -94,11 +94,6 @@ export function reducer(state = initialEntities<Claim>(),
   }
 }
 
+export const getEntities = (state: Entities<Claim>) => state.entities;
 
-export function getClaimEntities(state$: Observable<Entities<Claim>>) {
-  return state$.select(state => state.entities);
-}
-
-export function getClaimIds(state$: Observable<Entities<Claim>>) {
-  return state$.select(state => state.ids);
-}
+export const getIds = (state: Entities<Claim>) => state.ids;

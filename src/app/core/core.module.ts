@@ -81,8 +81,7 @@ const store = StoreModule.provideStore(reducer);
     NotFoundPage,
     RioAboutPage
   ],
-  providers: [
-  ]
+  providers: []
 
 })
 export class CoreModule {

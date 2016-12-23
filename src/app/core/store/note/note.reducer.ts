@@ -1,6 +1,5 @@
 import '@ngrx/core/add/operator/select';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/let';
 import { Observable } from 'rxjs/Observable';
 let uuid = require('node-uuid');
 
@@ -75,10 +74,6 @@ export function reducer(state = initialEntities<Note>(),
 
 };
 
-export function getNoteEntities(state$: Observable<Entities<Note>>) {
-  return state$.select(state => state.entities);
-}
+export const getEntities = (state: Entities<Note>) => state.entities;
 
-export function getNoteIds(state$: Observable<Entities<Note>>) {
-  return state$.select(state => state.ids);
-}
+export const getIds = (state: Entities<Note>) => state.ids;
