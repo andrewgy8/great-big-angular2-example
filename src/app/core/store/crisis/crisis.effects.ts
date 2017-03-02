@@ -14,7 +14,7 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/startWith';
 
 import { Crisis } from './crisis.model';
-import { DataService } from '../data.service';
+import { DataService } from '../../services/data.service';
 import * as crisis from './crisis.actions';
 
 @Injectable()
@@ -26,12 +26,12 @@ export class CrisisEffects {
   @Effect()
   loadData$: Observable<Action> = this.actions$
     .ofType(crisis.ActionTypes.LOAD)
-    .startWith(new crisis.LoadAction())
+    .startWith(new crisis.Load())
     .switchMap(() =>
       this.dataService.getCrises()
         .mergeMap(fetchedCrises => Observable.from(fetchedCrises))
-        .map((fetchedCrisis: Crisis) => new crisis.LoadSuccessAction(fetchedCrisis))  // one action per crisis
-        .catch((error) => Observable.of(new crisis.LoadFailAction(error)))
+        .map((fetchedCrisis: Crisis) => new crisis.LoadSuccess(fetchedCrisis))  // one action per crisis
+        .catch((error) => Observable.of(new crisis.LoadFail(error)))
     );
 
   @Effect()
@@ -44,7 +44,7 @@ export class CrisisEffects {
         .from((<any>crises).ids)
         .filter((id: string) => (<any>crises).entities[id].dirty)
         .switchMap((id: string) => this.dataService.addOrUpdateCrisis((<any>crises).entities[id]))
-        .map((responseCrisis: Crisis) => new crisis.UpdateCrisisSuccessAction(responseCrisis))
+        .map((responseCrisis: Crisis) => new crisis.AddSuccess(responseCrisis))
     );
 
 }

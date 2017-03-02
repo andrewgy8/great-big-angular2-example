@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { EffectsModule } from '@ngrx/effects';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { DataService } from '../core/store/data.service';
+import { DataService } from '../core/services/data.service';
 import { SharedModule } from '../shared/shared.module';
 import { ContactPage } from './contact.page';
 import { ContactRouting } from './contact.routing';

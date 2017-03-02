@@ -9,9 +9,14 @@ export interface DebatePageLayout {
   isTouched: Function;
 };
 
+export interface HeroesDashboardLayout {
+  heroSearchTerm: string
+}
+
 export interface Layout {
   booksPage: BooksPageLayout;
   debatePage: DebatePageLayout;
+  heroesDashboardPage: HeroesDashboardLayout;
   msg: string;
 }
 
@@ -32,11 +37,16 @@ export const initialDebatePage: DebatePageLayout = {
   }
 }
 
+export const initialHeroesDashboardPage = {
+  heroSearchTerm: ''
+}
+
 
 export const initialLayout: Layout = {
   booksPage: {
     showSidenav: false
   },
   debatePage: initialDebatePage,
+  heroesDashboardPage: initialHeroesDashboardPage,
   msg: ''
 }

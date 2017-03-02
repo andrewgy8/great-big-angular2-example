@@ -145,6 +145,6 @@ export class DebatePage {
   }
 
   ngOnDestroy() {
-    this.pageSubscription.unsubscribe();
+    this.pageSubscription && this.pageSubscription.unsubscribe();
   }
 }

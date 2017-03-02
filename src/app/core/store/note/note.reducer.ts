@@ -19,12 +19,12 @@ export function reducer(state = initialEntities<Note>(),
       entities = Object.assign({}, state.entities);
       let newNote = noteReducer(null, action);       // set the newNote.id if necessary
       entities[newNote.id] = newNote;
-      return {
+      return Object.assign({}, state, {
         ids: Object.keys(entities),
         entities: entities,
         loaded: true,
         loading: false,
-      };
+      });
 
     case note.ActionTypes.UPDATE_NOTE_TEXT:
     case note.ActionTypes.UPDATE_NOTE_POSITION:

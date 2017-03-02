@@ -8,7 +8,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { DebatePage } from './debate.page';
 import { ClaimComponent } from './claim/claim.component';
 import { RebuttalComponent } from './rebuttal/rebuttal.component';
-import { DataService } from '../core/store/data.service';
+import { DataService } from '../core/services/data.service';
 import { SharedModule } from '../shared/shared.module';
 import { DebateRouting } from './debate.routing';
 import { ClaimEffects } from '../core/store/claim/claim.effects';

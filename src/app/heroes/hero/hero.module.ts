@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
+import { EffectsModule } from '@ngrx/effects';
 
 import { SharedModule } from '../../shared/shared.module';
 import { routedComponents, HeroRouting } from './hero.routing';
 import { HeroDetailService } from './hero-detail/hero-detail.service';
+import { HeroEffects } from '../../core/store/hero/hero.effects';
 
 @NgModule({
   imports: [
     SharedModule,
+    EffectsModule.run(HeroEffects),
     HeroRouting
   ],
   declarations: [

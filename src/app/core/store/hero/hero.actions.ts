@@ -1,80 +1,104 @@
 import { Action } from '@ngrx/store';
 import { Hero } from './hero.model';
-import { type } from '../../../shared/util';
 
-export const ActionTypes = {
-  ADD_HERO:             type('[Heroes] Add Hero'),
-  ADD_HERO_SUCCESS:     type('[Heroes] Add Hero Success'),
-  ADD_HERO_FAIL:        type('[Heroes] Add Hero Fail'),
-  UPDATE_HERO:          type('[Heroes] Update Hero'),
-  UPDATE_HERO_SUCCESS:  type('[Heroes] Update Hero Success'),
-  UPDATE_HERO_FAIL:     type('[Heroes] Update Hero Fail'),
-  LOAD:                 type('[Heroes] Load'),
-  LOAD_SUCCESS:         type('[Heroes] Load Success'),
-  LOAD_FAIL:            type('[Heroes] Load Fail'),
-  SELECT_HERO:          type('[Heroes] Select Hero')
-};
+// export const ActionTypes = {
+//   ADD: type('[Heroes] Add Hero'),
+//   ADD_SUCCESS: type('[Heroes] Add Hero Success'),
+//   ADD_FAIL: type('[Heroes] Add Hero Fail'),
+//   UPDATE: type('[Heroes] Update Hero'),
+//   UPDATE_SUCCESS: type('[Heroes] Update Hero Success'),
+//   UPDATE_FAIL: type('[Heroes] Update Hero Fail'),
+//   LOAD: type('[Heroes] Load'),
+//   LOAD_SUCCESS: type('[Heroes] Load Success'),
+//   LOAD_FAIL: type('[Heroes] Load Fail'),
+//   SELECT: type('[Heroes] Select Hero'),
+//   DELETE: type('[Heroes] Delete Hero')
+// };
+import * as entityActions from '../entity/entity.actions';
 
-export class AddHeroSuccessAction implements Action {
-  type = ActionTypes.ADD_HERO_SUCCESS;
+export const ActionNames = {
+  ADD_SUPERPOWER: 'AddSuperpower'
+}
+export * from '../entity/entity.actions';
+
+export class AddSuperpower implements Action {
+  type = ActionNames.ADD_SUPERPOWER
+
+  constructor(public payload: any) { }
+}
+export type Actions = entityActions.Actions<Hero> | AddSuperpower;
+
+
+/*
+export class AddSuccess implements Action {
+  type = ActionTypes.ADD_SUCCESS;
 
   constructor(public payload: Hero) { }
 }
 
-export class UpdateHeroSuccessAction implements Action {
-  type = ActionTypes.UPDATE_HERO_SUCCESS;
+export class UpdateSuccess implements Action {
+  type = ActionTypes.UPDATE_SUCCESS;
 
-  constructor(public payload: any) { } // payload: { note }
+  constructor(public payload: any) { }
 }
 
-export class UpdateHeroFailAction implements Action {
-  type = ActionTypes.UPDATE_HERO_FAIL;
+export class UpdateFail implements Action {
+  type = ActionTypes.UPDATE_FAIL;
 
   constructor() { }
 }
 
-export class LoadAction implements Action {
+export class Load implements Action {
   type = ActionTypes.LOAD;
 
   constructor() { }
 }
 
-export class LoadSuccessAction implements Action {
+export class LoadSuccess implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
   constructor(public payload: Hero) { }
 }
 
-export class LoadFailAction implements Action {
+export class LoadFail implements Action {
   type = ActionTypes.LOAD_FAIL;
 
   constructor(public payload: any) { }
 }
 
-export class AddHeroAction implements Action {
-  type = ActionTypes.ADD_HERO;
+export class Add implements Action {
+  type = ActionTypes.ADD;
 
   constructor(public payload: Hero) { }
 }
 
-export class UpdateHeroAction implements Action {
-  type = ActionTypes.UPDATE_HERO;
+export class Update implements Action {
+  type = ActionTypes.UPDATE;
 
-  constructor(public payload: any) { }
+  constructor(public payload: Hero) { }
 }
 
-export class SelectHeroAction implements Action {
-  type = ActionTypes.SELECT_HERO;
+export class Select implements Action {
+  type = ActionTypes.SELECT;
 
   constructor(public payload: any) { }  // payload: {id}
 }
 
+export class Delete implements Action {
+  type = ActionTypes.DELETE;
+
+  constructor(public payload: Hero) { }
+}
+
 export type Actions
-  = AddHeroSuccessAction
-  | UpdateHeroSuccessAction
-  | LoadAction
-  | LoadSuccessAction
-  | LoadFailAction
-  | AddHeroAction
-  | UpdateHeroAction
-  | SelectHeroAction;
+  = AddSuccess
+  | UpdateSuccess
+  | Load
+  | LoadSuccess
+  | LoadFail
+  | Add
+  | Update
+  | Select
+  | Delete;
+*/
+

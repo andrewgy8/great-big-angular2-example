@@ -13,7 +13,7 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/startWith';
 
 import { Contact } from './contact.model';
-import { DataService } from '../data.service';
+import { DataService } from '../../services/data.service';
 import * as contact from './contact.actions';
 
 @Injectable()
@@ -25,12 +25,12 @@ export class ContactEffects {
   @Effect()
   load$ = this.action$
     .ofType(contact.ActionTypes.LOAD)
-    .startWith(new contact.LoadAction())
+    .startWith(new contact.Load())
     .switchMap(() =>
       this.dataService.getContacts()
         .mergeMap(fetchedContacts => Observable.from(fetchedContacts))
-        .map((fetchedContact: Contact) => new contact.LoadSuccessAction(fetchedContact))  // one action per contact
-        .catch((error) => Observable.of(new contact.LoadFailAction(error)))
+        .map((fetchedContact: Contact) => new contact.LoadSuccess(fetchedContact))  // one action per contact
+        .catch((error) => Observable.of(new contact.LoadFail(error)))
     );
 
   @Effect()

@@ -15,21 +15,21 @@ import 'rxjs/add/operator/startWith';
 
 import * as claim from '../claim/claim.actions';
 import { Claim } from '../claim/claim.model';
-import { DataService } from '../data.service';
+import { DataService } from '../../services/data.service';
 
 @Injectable()
 export class ClaimEffects {
-    constructor(private actions$: Actions,
-        private dataService: DataService) { }
+  constructor(private actions$: Actions,
+    private dataService: DataService) { }
 
-    @Effect()
-    loadData$: Observable<Action> = this.actions$
-        .ofType(claim.ActionTypes.LOAD)
-        .startWith(new claim.LoadAction())
-        .switchMap(() =>
-            this.dataService.getClaims()
-                .mergeMap(fetchedRecords => Observable.from(fetchedRecords))
-                .map((fetchedRecord: Claim) => new claim.LoadSuccessAction(fetchedRecord))
-                .catch(error => Observable.of(new claim.LoadFailAction(error)))
-        );
+  @Effect()
+  loadData$: Observable<Action> = this.actions$
+    .ofType(claim.ActionTypes.LOAD)
+    .startWith(new claim.Load())
+    .switchMap(() =>
+      this.dataService.getClaims()
+        .mergeMap(fetchedRecords => Observable.from(fetchedRecords))
+        .map((fetchedRecord: Claim) => new claim.LoadSuccess(fetchedRecord))
+        .catch(error => Observable.of(new claim.LoadFail(error)))
+    );
 }

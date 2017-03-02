@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Claim } from '../claim/claim.model';
-import { type } from '../../../shared/util';
+import { type } from '../util';
 
 export const ActionTypes = {
   ADD_CLAIM: type('[Claims] Add Claim'),
@@ -25,19 +25,19 @@ export class AddClaimAction implements Action {
   constructor(public payload: Claim) { };
 }
 
-export class LoadAction implements Action {
+export class Load implements Action {
   type = ActionTypes.LOAD;
 
   constructor() { };
 }
 
-export class LoadSuccessAction implements Action {
+export class LoadSuccess implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
   constructor(public payload: Claim) { };
 }
 
-export class LoadFailAction implements Action {
+export class LoadFail implements Action {
   type = ActionTypes.LOAD_FAIL;
 
   constructor(public payload: any) { }; // payload: error
@@ -94,16 +94,16 @@ export class ReorderRebuttalsAction implements Action {
 export class ReorderClaimsAction implements Action {
   type = ActionTypes.REORDER_CLAIMS;
 
-  constructor(public payload: string[]) { } // payload: id[] 
+  constructor(public payload: string[]) { } // payload: id[]
 }
 
 
 
 export type Actions
   = AddClaimAction
-  | LoadAction
-  | LoadSuccessAction
-  | LoadFailAction
+  | Load
+  | LoadSuccess
+  | LoadFail
   | ReorderClaimsAction
   | ToggleAllRebuttalsAction
   | ToggleEditableAction

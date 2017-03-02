@@ -13,6 +13,13 @@ export function reducer(state = initialLayout, action: layout.Actions |
     case layout.ActionTypes.OPEN_SIDENAV:
       return Object.assign({}, state, { booksPage: { showSidenav: true } });
 
+    case layout.ActionTypes.SEARCH_FOR_HERO:
+      return Object.assign({}, state, {
+        heroesDashboardPage: Object.assign({},
+          state.heroesDashboardPage,
+          { heroSearchTerm: action.payload.term })
+      });
+
     case claim.ActionTypes.TOGGLE_EDITABLE:
       return Object.assign({}, state, {
         debatePage: Object.assign({},
@@ -48,3 +55,5 @@ export const getShowSidenav = (state: Layout) => state.booksPage.showSidenav;
 export const getDebatePageState = (state: Layout) => state.debatePage;
 
 export const getMsg = (state: Layout) => state.msg;
+
+export const getHeroSearchTerm = (state: Layout) => state.heroesDashboardPage.heroSearchTerm;
