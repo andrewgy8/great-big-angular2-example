@@ -6,11 +6,11 @@ import { Observable } from 'rxjs/Observable';
 import { Claim, initialClaim } from './claim.model';
 import * as claim from './claim.actions';
 import { Entities, initialEntities } from '../entity/entity.model';
-import * as layout from '../layout/layout.actions';
+import * as actions from '../layout/layout.actions';
 
 
-export function reducer(state = initialEntities<Claim>(),
-  action: claim.Actions | layout.Actions): Entities<Claim> {
+export function reducer(state = initialEntities<Claim>({}, 'Claim', actions, initialClaim),
+  action: claim.Actions | actions.Actions): Entities<Claim> {
   let entities = {};
 
   switch (action.type) {

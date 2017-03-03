@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Contact } from './contact.model';
-import { type } from '../../../shared/util';
+import { type } from '../util';
 
 export const ActionTypes = {
   ADD_CONTACT: type('[Contacts] Add Contact'),
@@ -36,19 +36,19 @@ export class UpdateContactFailAction implements Action {
 /**
  * Load Contact Actions
  */
-export class LoadAction implements Action {
+export class Load implements Action {
   type = ActionTypes.LOAD;
 
   constructor() { }
 }
 
-export class LoadSuccessAction implements Action {
+export class LoadSuccess implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
   constructor(public payload: Contact) { }
 }
 
-export class LoadFailAction implements Action {
+export class LoadFail implements Action {
   type = ActionTypes.LOAD_FAIL;
 
   constructor(public payload: any) { }
@@ -75,9 +75,9 @@ export class NextContactAction implements Action {
 export type Actions
   = AddContactSuccessAction
   | UpdateContactSuccessAction
-  | LoadAction
-  | LoadSuccessAction
-  | LoadFailAction
+  | Load
+  | LoadSuccess
+  | LoadFail
   | AddContactAction
   | UpdateContactAction
   | NextContactAction;

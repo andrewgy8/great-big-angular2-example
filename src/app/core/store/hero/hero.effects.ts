@@ -13,37 +13,31 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/startWith';
 
 import { Hero } from './hero.model';
-import { DataService } from '../data.service';
-import * as hero from './hero.actions';
+import { DataService } from '../../services/data.service';
+import { EntityEffects } from '../entity/entity.effects';
+import { typeFor } from '../util';
+import * as actions from './hero.actions';
 
 @Injectable()
-export class HeroEffects {
-  constructor(private store: Store<Hero>,
-    private dataService: DataService,
-    private action$: Actions) { }
+export class HeroEffects extends EntityEffects<Hero> {
 
-  @Effect()
-  load$ = this.action$
-    .ofType(hero.ActionTypes.LOAD)
-    .startWith(new hero.LoadAction())
-    .switchMap(() =>
-      this.dataService.getHeroes()
-        .mergeMap(fetchedHeros => Observable.from(fetchedHeros))
-        .map((fetchedHero: Hero) => new hero.LoadSuccessAction(fetchedHero))  // one action per hero
-        .catch(() => Observable.of(new hero.UpdateHeroFailAction()))
-    );
-
-  @Effect()
-  update$ = this.action$
-    .ofType(hero.ActionTypes.UPDATE_HERO,
-    hero.ActionTypes.ADD_HERO)
-    .withLatestFrom(this.store.select('heros'))
-    .switchMap(([{}, heros]) =>
-      Observable   // first element is action, but it isn't used
-        .from((<any>heros).ids)
-        .filter((id: string) => (<any>heros).entities[id].dirty)
-        .switchMap((id: string) => this.dataService.addOrUpdateHero((<any>heros).entities[id]))
-        .map((responseHero: Hero) => new hero.UpdateHeroSuccessAction(responseHero))
-    );
-
+  constructor(
+    store: Store<Hero>,
+    action$: Actions,
+    private dataService: DataService) {
+    super(store, action$, 'Hero', 'heroes', dataService.getHeroes, dataService.addOrUpdateHero);
+    console.log('HeroEffects Constructed');
+  }
+  // @Effect()
+  // load2$ = this.action$
+  //   .ofType(typeFor(this.entityName, actions.ActionNames.LOAD))
+  //   .startWith(new actions.Load<Hero>(null, this.entityName))
+  //   .do(() => console.log('load starting'))
+  //   .switchMap(() =>
+  //     this.getEntities()
+  //       .do(() => console.log('got entities'))
+  //       .mergeMap(fetchedEntities => Observable.from(fetchedEntities))
+  //       .map((fetchedEntity: Hero) => new actions.LoadSuccess<Hero>(fetchedEntity, this.entityName))  // one action per entity
+  //       .catch(() => Observable.of(new actions.UpdateFail<Hero>(null, this.entityName)))
+  //   );
 }

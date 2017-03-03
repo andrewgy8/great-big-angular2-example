@@ -3,7 +3,6 @@ export * from './hero';
 export * from './crisis';
 export * from './hero.service';
 export * from './crisis.service';
-export * from './http-hero.service';
 export * from './test-heroes';
 
 export * from '../../core/services/user.service';

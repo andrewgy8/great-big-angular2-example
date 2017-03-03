@@ -1,7 +1,7 @@
 import { Action } from '@ngrx/store';
 
 import { Rebuttal } from './rebuttal.model';
-import { type } from '../../../shared/util';
+import { type } from '../util';
 
 export const ActionTypes = {
   LOAD: type('[Rebuttals] Load'),
@@ -17,19 +17,19 @@ export const ActionTypes = {
   ADD_REBUTTAL: type('[Rebuttal] Add Rebuttal')
 }
 
-export class LoadAction implements Action {
+export class Load implements Action {
   type = ActionTypes.LOAD;
 
   constructor() { };
 }
 
-export class LoadSuccessAction implements Action {
+export class LoadSuccess implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
   constructor(public payload: Rebuttal) { };
 }
 
-export class LoadFailAction implements Action {
+export class LoadFail implements Action {
   type = ActionTypes.LOAD_FAIL;
 
   constructor(public payload: Rebuttal[]) { };
@@ -79,9 +79,9 @@ export class AddRebuttalAction implements Action {
 
 
 export type Actions
-  = LoadAction
-  | LoadSuccessAction
-  | LoadFailAction
+  = Load
+  | LoadSuccess
+  | LoadFail
   | SaveAllAction
   | SaveAllSuccessAction
   | SaveAllFailAction

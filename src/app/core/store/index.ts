@@ -211,6 +211,7 @@ export const getLayoutState = (state: RootState) => state.layout;
 export const getShowSidenav = createSelector(getLayoutState, fromLayout.getShowSidenav);
 export const getMsg = createSelector(getLayoutState, fromLayout.getMsg);
 export const getDebatePageState = createSelector(getLayoutState, fromLayout.getDebatePageState);
+export const getHeroSearchTerm = createSelector(getLayoutState, fromLayout.getHeroSearchTerm);
 
 
 /**
@@ -340,7 +341,9 @@ export const getSelectedHero = createSelector(getHeroesState, fromHeroes.getSele
 export const getHeroes = createSelector(getHeroEntities, getHeroIds, (entities, ids) => {
   return ids.map(id => entities[id]);
 });
-
+export const getHeroesForSearchTerm = createSelector(getHeroes, getHeroSearchTerm, (heroes, searchTerm) => {
+  return heroes.filter(hero => hero.name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
+});
 /**
  * User Reducers
  */

@@ -1,10 +1,9 @@
 export interface Hero {
-    id: string,
-    name: string
+  id: string,
+  name: string
 }
 
-
 export const initialHero = {
-    id: null,
-    name: null
+  id: null,
+  name: null
 };

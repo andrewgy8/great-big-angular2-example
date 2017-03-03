@@ -15,7 +15,7 @@ import 'rxjs/add/operator/startWith';
 
 import * as rebuttals from '../rebuttal/rebuttal.actions';
 import { Rebuttal } from '../rebuttal/rebuttal.model';
-import { DataService } from '../data.service';
+import { DataService } from '../../services/data.service';
 
 @Injectable()
 export class RebuttalEffects {
@@ -25,11 +25,11 @@ export class RebuttalEffects {
   @Effect()
   loadData$: Observable<Action> = this.actions$
     .ofType(rebuttals.ActionTypes.LOAD)
-    .startWith(new rebuttals.LoadAction())
+    .startWith(new rebuttals.Load())
     .switchMap(() =>
       this.dataService.getRebuttals()
         .mergeMap(fetchedRebuttals => Observable.from(fetchedRebuttals))
-        .map((fetchedRecord: Rebuttal) => new rebuttals.LoadSuccessAction(fetchedRecord))
-        .catch(error => of(new rebuttals.LoadFailAction(error)))
+        .map((fetchedRecord: Rebuttal) => new rebuttals.LoadSuccess(fetchedRecord))
+        .catch(error => of(new rebuttals.LoadFail(error)))
     );
 }

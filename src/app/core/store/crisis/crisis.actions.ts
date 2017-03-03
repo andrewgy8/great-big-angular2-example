@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Crisis } from './crisis.model';
-import { type } from '../../../shared/util';
+import { type } from '../util';
 
 export const ActionTypes = {
   ADD_CRISIS: type('[Crises] Add Crisis'),
@@ -15,19 +15,19 @@ export const ActionTypes = {
   SELECT_CRISIS: type('[Crises] Select Crisis')
 };
 
-export class AddCrisisSuccessAction implements Action {
+export class AddSuccess implements Action {
   type = ActionTypes.ADD_CRISIS_SUCCESS;
 
   constructor(public payload: Crisis) { }
 }
 
-export class UpdateCrisisSuccessAction implements Action {
+export class UpdateSuccess implements Action {
   type = ActionTypes.UPDATE_CRISIS_SUCCESS;
 
   constructor(public payload: any) { } // payload: { note }
 }
 
-export class UpdateCrisisFailAction implements Action {
+export class UpdateFail implements Action {
   type = ActionTypes.UPDATE_CRISIS_FAIL;
 
   constructor() { }
@@ -36,48 +36,48 @@ export class UpdateCrisisFailAction implements Action {
 /**
  * Load Crisis Actions
  */
-export class LoadAction implements Action {
+export class Load implements Action {
   type = ActionTypes.LOAD;
 
   constructor() { }
 }
 
-export class LoadSuccessAction implements Action {
+export class LoadSuccess implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
   constructor(public payload: Crisis) { }
 }
 
-export class LoadFailAction implements Action {
+export class LoadFail implements Action {
   type = ActionTypes.LOAD_FAIL;
 
   constructor(public payload: any) { }
 }
 
-export class AddCrisisAction implements Action {
+export class Add implements Action {
   type = ActionTypes.ADD_CRISIS;
 
   constructor(public payload: Crisis) { }
 }
 
-export class UpdateCrisisAction implements Action {
+export class Update implements Action {
   type = ActionTypes.UPDATE_CRISIS;
 
   constructor(public payload: any) { }
 }
 
-export class SelectCrisisAction implements Action {
+export class Select implements Action {
   type = ActionTypes.SELECT_CRISIS;
 
   constructor(public payload: string) { }
 }
 
 export type Actions
-  = AddCrisisSuccessAction
-  | UpdateCrisisSuccessAction
-  | LoadAction
-  | LoadSuccessAction
-  | LoadFailAction
-  | AddCrisisAction
-  | UpdateCrisisAction
-  | SelectCrisisAction;
+  = AddSuccess
+  | UpdateSuccess
+  | Load
+  | LoadSuccess
+  | LoadFail
+  | Add
+  | Update
+  | Select;

@@ -1,18 +1,18 @@
 import { Action } from '@ngrx/store';
 import { Note } from './note.model';
-import { type } from '../../../shared/util';
+import { type } from '../util';
 
 export const ActionTypes = {
-  ADD_NOTE:                type('[Notes] Add Note'),
-  ADD_NOTE_SUCCESS:        type('[Notes] Add Note Success'),
-  ADD_NOTE_FAIL:           type('[Notes] Add Note Fail'),
-  UPDATE_NOTE_SUCCESS:     type('[Notes] Update Note Success'),
-  UPDATE_NOTE_FAIL:        type('[Notes] Update Note Fail'),
-  LOAD:                    type('[Notes] Load'),
-  LOAD_SUCCESS:            type('[Notes] Load Success'),
-  LOAD_FAIL:               type('[Notes] Load Fail'),
-  UPDATE_NOTE_TEXT:        type('[Notes] Update Note Text'),
-  UPDATE_NOTE_POSITION:    type('[Notes] Update Note Position')
+  ADD_NOTE: type('[Notes] Add Note'),
+  ADD_NOTE_SUCCESS: type('[Notes] Add Note Success'),
+  ADD_NOTE_FAIL: type('[Notes] Add Note Fail'),
+  UPDATE_NOTE_SUCCESS: type('[Notes] Update Note Success'),
+  UPDATE_NOTE_FAIL: type('[Notes] Update Note Fail'),
+  LOAD: type('[Notes] Load'),
+  LOAD_SUCCESS: type('[Notes] Load Success'),
+  LOAD_FAIL: type('[Notes] Load Fail'),
+  UPDATE_NOTE_TEXT: type('[Notes] Update Note Text'),
+  UPDATE_NOTE_POSITION: type('[Notes] Update Note Position')
 };
 
 export class AddNoteSuccessAction implements Action {
@@ -36,19 +36,19 @@ export class UpdateNoteFailAction implements Action {
 /**
  * Load Collection Actions
  */
-export class LoadAction implements Action {
+export class Load implements Action {
   type = ActionTypes.LOAD;
 
   constructor() { }
 }
 
-export class LoadSuccessAction implements Action {
+export class LoadSuccess implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
   constructor(public payload: Note) { }
 }
 
-export class LoadFailAction implements Action {
+export class LoadFail implements Action {
   type = ActionTypes.LOAD_FAIL;
 
   constructor(public payload: any) { }
@@ -75,9 +75,9 @@ export class UpdateNotePositionAction implements Action {
 export type Actions
   = AddNoteSuccessAction
   | UpdateNoteSuccessAction
-  | LoadAction
-  | LoadSuccessAction
-  | LoadFailAction
+  | Load
+  | LoadSuccess
+  | LoadFail
   | AddNoteAction
   | UpdateNoteTextAction
   | UpdateNotePositionAction;

@@ -81,9 +81,11 @@ app.get('/api/contacts', getRecords('contact'));
 app.post('/api/contact', saveARecord('contact'));
 app.get('/api/crises', getRecords('crisis'));
 app.get('/api/heroes', getRecords('hero'));
+// app.get('/api/heroes/:id', getRecords('hero'));
 app.get('/api/notes', getRecords('note'));
 app.get('/api/users', getRecords('user'));
 app.post('/api/note', saveARecord('note'));
+app.post('/api/hero', saveARecord('hero'));
 
 app.get('/api/deps/:package', getDependencies());
 

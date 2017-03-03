@@ -13,7 +13,7 @@ import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/startWith';
 
 import { Note } from './note.model';
-import { DataService } from '../data.service';
+import { DataService } from '../../services/data.service';
 import * as note from './note.actions';
 import { Entities } from '../entity/entity.model';
 
@@ -26,12 +26,12 @@ export class NoteEffects {
   @Effect()
   load$ = this.action$
     .ofType(note.ActionTypes.LOAD)
-    .startWith(new note.LoadAction())
+    .startWith(new note.Load())
     .switchMap(() =>
       this.dataService.getNotes()
         .mergeMap(fetchedNotes => Observable.from(fetchedNotes))
-        .map((fetchedNote: Note) => new note.LoadSuccessAction(fetchedNote))  // one action per note
-        .catch((error) => Observable.of(new note.LoadFailAction(error)))
+        .map((fetchedNote: Note) => new note.LoadSuccess(fetchedNote))  // one action per note
+        .catch((error) => Observable.of(new note.LoadFail(error)))
     );
 
   @Effect()

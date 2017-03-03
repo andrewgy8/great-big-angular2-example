@@ -1,5 +1,3 @@
-[Please click here to support the Standing Rock Sioux Tribe and their peaceful resistance to the Dakota Access Pipeline which threatens their only source of water.](http://www.powwows.com/2016/09/07/10-ways-can-help-standing-rock-sioux-fight-dakota-access-pipeline/) 
-
 
 [![Build Status](https://travis-ci.org/dancancro/great-big-angular2-example.svg?branch=master)](https://travis-ci.org/dancancro/great-big-angular2-example)
 [![Dependency Status](https://david-dm.org/dancancro/great-big-angular2-example.svg)](https://david-dm.org/dancancro/great-big-angular2-example)
@@ -41,7 +39,7 @@ according to the following prioritization. Disagreements in approach between two
 lower influence yielding to the higher one:
 
 1. [Angular Style Guide](https://angular.io/docs/ts/latest/guide/style-guide.html) by Google
-2. [Tour of Heroes (ngModules, Routing, App Specs versions)](https://github.com/dancancro/tour-of-heroes-versions) by Google
+2. [Tour of Heroes (ngModules, Routing, App Specs, HTTP, Server Communication versions)](https://github.com/dancancro/tour-of-heroes-versions) by Google
 3. [Angular CLI](https://github.com/angular/angular-cli) by Google and the community
 4. [ngrx example app - book collection](https://github.com/ngrx/example-app) by [@MikeRyan52](https://github.com/MikeRyan52)
 5. [angular-seed-advanced](https://github.com/NathanWalker/angular-seed-advanced) by Minko Gechev + Nathan Walker + community
@@ -71,7 +69,8 @@ recommended practice with Redux.
 unrelated concerns. If a directory in a source demo had files for two different things, I created more directories. I thought about 
 removing that part of the file name, `src/app/app.page.ts` -> `src/app/page.ts`, for the sake of DRY, and I might still do that, but I'm 
 undecided on whether it would cause confusion to see many files in an editor with the same name.
-3. I came up with a mini lexicon of file types to keep file names shorter and more expressive. A "page" is understood to be a smart `@Component`
+3. Created a class `Entities` to hold what's common to all the Redux store entities
+4. I came up with a mini lexicon of file types to keep file names shorter and more expressive. A "page" is understood to be a smart `@Component`
 class that fills the page and might have a router-outlet and route configurations. A "guard" is understood to be an `@Injectable` "service" class that
 returns a boolean. A "routing" is a `@NgModule` class that contains route configurations. So I memorize this simple lexicon, and drop the
 redundant, less-clear words from the names. For example, I use the name `app.page.ts` rather than `app.component.ts` or `app-page.component.ts`.

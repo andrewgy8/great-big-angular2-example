@@ -1,8 +1,9 @@
 // re-export for tester convenience
-export { Hero }        from '../hero';
+export { Hero } from '../hero';
 export { HeroService } from '../hero.service';
+import { Headers } from '@angular/http';
 
-import { Hero }        from '../hero';
+import { Hero } from '../hero';
 import { HeroService } from '../hero.service';
 
 export var HEROES: Hero[] = [
@@ -15,6 +16,7 @@ export var HEROES: Hero[] = [
 ];
 
 export class FakeHeroService implements HeroService {
+  private headers = new Headers({ 'Content-Type': 'application/json' });
 
   heroes = HEROES.map(h => h.clone());
   lastPromise: Promise<any>;  // remember so we can spy on promise calls

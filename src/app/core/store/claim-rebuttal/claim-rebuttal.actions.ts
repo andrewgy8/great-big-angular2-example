@@ -3,7 +3,7 @@ import { Action } from '@ngrx/store';
 import { Claim } from '../claim/claim.model';
 import { Rebuttal } from '../rebuttal/rebuttal.model';
 import { ClaimRebuttal } from './claim-rebuttal.model';
-import { type } from '../../../shared/util';
+import { type } from '../util';
 
 export const ActionTypes = {
   ASSOCIATE_REBUTTAL: type('[ClaimRebuttal] Associate a Rebuttal to Claim'),
@@ -29,19 +29,19 @@ export class DisassociateRebuttalAction implements Action {
   constructor(public payload: { claim: Claim, rebuttal: Rebuttal }) { };
 }
 
-export class LoadAction implements Action {
+export class Load implements Action {
   type = ActionTypes.LOAD;
 
   constructor() { };
 }
 
-export class LoadSuccessAction implements Action {
+export class LoadSuccess implements Action {
   type = ActionTypes.LOAD_SUCCESS;
 
   constructor(public payload: ClaimRebuttal) { };
 }
 
-export class LoadFailAction implements Action {
+export class LoadFail implements Action {
   type = ActionTypes.LOAD_FAIL;
 
   constructor(public payload: any) { }; // payload: error
@@ -68,7 +68,7 @@ export class SaveAllFailAction implements Action {
 export class ReorderRebuttalsAction implements Action {
   type = ActionTypes.REORDER_REBUTTALS;
 
-  constructor(public payload: any) { } // payload: {claim, rebuttals} 
+  constructor(public payload: any) { } // payload: {claim, rebuttals}
 }
 
 
@@ -76,9 +76,9 @@ export class ReorderRebuttalsAction implements Action {
 export type Actions
   = AssociateRebuttalAction
   | DisassociateRebuttalAction
-  | LoadAction
-  | LoadSuccessAction
-  | LoadFailAction
+  | Load
+  | LoadSuccess
+  | LoadFail
   | SaveAllAction
   | SaveAllSuccessAction
   | SaveAllFailAction
